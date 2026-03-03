@@ -30,7 +30,7 @@
             background-image: url('assets/Tu3gODl0Yg.jpg'); /* 冰山背景图 */
             background-size: cover;
             background-position: top left;
-            
+            background-repeat: no-repeat;
         }
 
         /* 右侧纯色遮挡板块 */
@@ -99,19 +99,77 @@
         .s4 { top: 76%; right: 32%; }
         .s5 { top: 84%; right: 40%; }
         .s6 { top: 92%; right: 48%; }
-        .star s7 { position: absolute; top: 97%; right: 58%; width: 330px; z-index: 5;}
+        .s7 { 
+            top: 97%; 
+            right: 58%; 
+            width: 500px; 
+            height: 800px; /* 故意设置不符合原图比例的高度，使其被扭曲拉长 */
+            z-index: 10; /* 确保层级高，方便点击 */
+        }
+        /* 隐藏图片初始样式 */
+        .hidden-img {
+            display: none;
+            position: absolute;
+            width: 130px;
+            z-index: 20;
+        }
 
-        /* 弹窗广告样式 */
-        #bouncing-ad {
+        /* 古早风密码弹窗样式 */
+        #password-modal {
+            display: none;
             position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #c0c0c0; /* 经典的电脑视窗灰 */
+            border: 2px solid;
+            border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            padding: 20px;
+            z-index: 10000;
+            text-align: center;
+            width: 350px;
+        }
+        #password-modal p {
+            font-size: 14px;
+            color: black;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        #password-modal input {
+            width: 90%;
+            margin-bottom: 10px;
+            padding: 4px;
+            border: 2px solid;
+            border-color: #000000 #dfdfdf #dfdfdf #000000;
+            background: #fff;
+        }
+        #password-modal input::placeholder {
+            color: rgba(0, 0, 0, 0.5); /* 半透明黑色文字 */
+        }
+        #password-modal button {
+            padding: 4px 15px;
+            border: 2px solid;
+            border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            background: #c0c0c0;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        #password-modal button:active {
+            border-color: #000000 #dfdfdf #dfdfdf #000000;
+        }
+
+        /* 弹窗广告样式：更改了ID名称防拦截，并显式指定初始坐标 */
+        #bouncing-window {
+            position: fixed;
+            top: 0;
+            left: 0;
             z-index: 9999; /* 保证在最顶层 */
             width: 200px; /* 您可根据素材实际比例调整大小 */
             cursor: pointer;
         }
-        #bouncing-ad img {
+        #bouncing-window img {
             width: 100%;
             height: auto;
-            border: 2px solid #fff; /* 给小广告加个古早白边 */
         }
     </style>
 </head>
@@ -142,40 +200,92 @@
         <img src="assets/22.png" alt="粉发小神使" class="img-pink">
         <img src="assets/lianyi.png" alt="红发涟漪" class="img-red">
 
-        <!-- 斜向排列的流泪星星 -->
+              <!-- 斜向排列的流泪星星 -->
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s1">
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s2">
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s3">
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s4">
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s5">
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s6">
-        <img src="assets/u2b50_u1f972.png" alt="star" class="star s7">
+        <!-- 给最底下的星星增加点击开启弹窗事件 -->
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s7" onclick="document.getElementById('password-modal').style.display='block'">
+
+        <!-- 解密后出现的隐藏图片 -->
+        <a href="这里填入您隐藏图片的链接1" target="_blank"><img src="assets/Hidden1.PNG" alt="hidden1" class="hidden-img" id="h-img1"></a>
+        <a href="这里填入您隐藏图片的链接2" target="_blank"><img src="assets/Hidden2.png" alt="hidden2" class="hidden-img" id="h-img2"></a>
     </div>
 
+    <!-- 弹出的密码输入窗口 -->
+    <div id="password-modal">
+        <p>请输入正确的账户及密码，新用户输入账户即登记为注册</p>
+        <input type="text" placeholder="任意输入您的名字拼音即可" id="acc-input">
+        <input type="text" placeholder="密码为网站作者的任意网名的拼音" id="pwd-input">
+        <button onclick="checkPassword()">确认</button>
+    </div>
+
+    
     <!-- 乱七八糟的弹窗广告 Register.GIF -->
-    <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="bouncing-ad" target="_blank">
-        <img src="assets/Register.GIF" alt="交易中心注册广告">
+  <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="bouncing-window" target="_blank" style="display: block;">
+        <img src="assets/Register.GIF" alt="交易中心注册广告" onerror="this.src='assets/Register.Gif'; this.onerror=null;">
     </a>
 
-    <!-- 弹窗广告运动脚本 -->
+  <!-- 密码验证与弹窗广告运动脚本 -->
     <script>
-        const ad = document.getElementById('bouncing-ad');
+        // 密码验证及隐藏图片随机散布显示逻辑
+        function checkPassword() {
+            // 获取输入的值并转为小写以方便容错比对
+            const pwd = document.getElementById('pwd-input').value.toLowerCase();
+            // 您要求的几个必须包含的密码关键字
+            const validPasswords = ["wuhao", "xingyexia", "budingwuhao", "nausea"];
+            
+            // 检查输入的密码是否包含上述任意一个关键字
+            const isCorrect = validPasswords.some(validPwd => pwd.includes(validPwd));
+
+            if (isCorrect) {
+                // 密码正确：隐藏弹窗
+                document.getElementById('password-modal').style.display = 'none'; 
+                
+                // 抓取隐藏的图片元素
+                const hImg1 = document.getElementById('h-img1');
+                const hImg2 = document.getElementById('h-img2');
+                
+                // 设定随机范围，使其在 1000x2300 的冰山图内随机散布
+                // X轴范围大约 0~800 (留出一点右边距防止溢出), Y轴范围 0~2100
+                hImg1.style.top = Math.floor(Math.random() * 2100) + 'px';
+                hImg1.style.left = Math.floor(Math.random() * 800) + 'px';
+                hImg1.style.display = 'block';
+
+                hImg2.style.top = Math.floor(Math.random() * 2100) + 'px';
+                hImg2.style.left = Math.floor(Math.random() * 800) + 'px';
+                hImg2.style.display = 'block';
+            } else {
+                alert("密码错误，请重试！");
+            }
+        }
+
+ // 更改为获取新的防拦截ID
+        const ad = document.getElementById('bouncing-window');
         let x = 0; // 初始 X 坐标
         let y = 0; // 初始 Y 坐标
         let dx = 2.5; // 水平移动速度
         let dy = 2.5; // 垂直移动速度
 
         function animate() {
+            if (!ad) return; // 防止未获取到元素时报错
             const rect = ad.getBoundingClientRect();
             const winWidth = window.innerWidth;
             const winHeight = window.innerHeight;
 
+            // 加入容错：防止图片未加载时宽度为0导致卡死在边缘
+            let currentWidth = rect.width || 200;
+            let currentHeight = rect.height || 100;
+
             // 碰到左右边缘反弹
-            if (x + rect.width >= winWidth || x <= 0) {
+            if (x + currentWidth >= winWidth || x <= 0) {
                 dx = -dx;
             }
             // 碰到上下边缘反弹
-            if (y + rect.height >= winHeight || y <= 0) {
+            if (y + currentHeight >= winHeight || y <= 0) {
                 dy = -dy;
             }
 
@@ -186,8 +296,10 @@
             requestAnimationFrame(animate);
         }
 
-        // 启动动画
-        requestAnimationFrame(animate);
-    </script>
+        // 关键修复：确保整个页面和图片完全加载完成后，再启动动画
+        window.onload = function() {
+            requestAnimationFrame(animate);
+        };
+            </script>
 </body>
 </html>
