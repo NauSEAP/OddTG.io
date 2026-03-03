@@ -198,8 +198,13 @@
         </div>
 
         <!-- 角色图片 -->
-        <img src="assets/22.png" alt="粉发小神使" class="img-pink">
-        <img src="assets/lianyi.png" alt="红发涟漪" class="img-red">
+        < <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9" target="_blank">
+            <img src="assets/22.png" alt="粉" class="img-pink">
+        </a>
+        
+        <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-14" target="_blank">
+            <img src="assets/lianyi.png" alt="红发涟漪" class="img-red">
+        </a>
 
               <!-- 斜向排列的流泪星星 -->
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s1">
@@ -269,49 +274,64 @@
             }
         }
 
-        // 配置多个广告的速度与初始位置
-        const adList = [
-            { el: document.getElementById('ad-1'), x: 0, y: 0, dx: 3.5, dy: 3.5 },     // 广告1速度较快
-            { el: document.getElementById('ad-2'), x: 200, y: 150, dx: -2.0, dy: 2.0 } // 广告2速度较慢，反向移动
+        // 终极暴力防卡死：不提前获取元素，而是自己在循环里通过ID去找！
+        let adData = [
+            { id: 'ad-1', x: 0, y: 0, dx: 3.5, dy: 3.5, el: null },
+            { id: 'ad-2', x: 200, y: 150, dx: -2.0, dy: 2.0, el: null }
         ];
 
         function moveAds() {
-            const winWidth = window.innerWidth;
-            const winHeight = window.innerHeight;
+            // 兼容不同浏览器的视窗大小获取方式
+            let winWidth = window.innerWidth || document.documentElement.clientWidth;
+            let winHeight = window.innerHeight || document.documentElement.clientHeight;
 
-            for (let i = 0; i < adList.length; i++) {
-                let obj = adList[i];
-                if (!obj.el) continue;
+            for (let i = 0; i < adData.length; i++) {
+                let obj = adData[i];
+                
+                // 核心修复：如果还没拿到 HTML 元素，就去抓取。只要抓到了就存起来，没抓到就等下一次
+                if (!obj.el) {
+                    obj.el = document.getElementById(obj.id);
+                    if (!obj.el) continue; 
+                }
 
+                // 获取当前广告宽高，提供保底值防止报错
                 let currentWidth = obj.el.offsetWidth || 200;
                 let currentHeight = obj.el.offsetHeight || 100;
 
-                // 碰到左右边缘：强制拉回并反向
-                if (obj.x + currentWidth >= winWidth) {
-                    obj.x = winWidth - currentWidth;
+                // 预判下一步位置
+                let nextX = obj.x + obj.dx;
+                let nextY = obj.y + obj.dy;
+
+                // 碰到左右边缘：强制拉回边界内，并设定正确的反弹方向
+                if (nextX + currentWidth >= winWidth) {
+                    nextX = winWidth - currentWidth;
                     obj.dx = -Math.abs(obj.dx);
-                } else if (obj.x <= 0) {
-                    obj.x = 0;
+                } else if (nextX <= 0) {
+                    nextX = 0;
                     obj.dx = Math.abs(obj.dx);
                 }
 
-                // 碰到上下边缘：强制拉回并反向
-                if (obj.y + currentHeight >= winHeight) {
-                    obj.y = winHeight - currentHeight;
+                // 碰到上下边缘：强制拉回边界内，并设定正确的反弹方向
+                if (nextY + currentHeight >= winHeight) {
+                    nextY = winHeight - currentHeight;
                     obj.dy = -Math.abs(obj.dy);
-                } else if (obj.y <= 0) {
-                    obj.y = 0;
+                } else if (nextY <= 0) {
+                    nextY = 0;
                     obj.dy = Math.abs(obj.dy);
                 }
 
-                obj.x += obj.dx;
-                obj.y += obj.dy;
+                // 更新实际坐标
+                obj.x = nextX;
+                obj.y = nextY;
 
-                // 抛弃 transform，直接修改绝对定位的 left 和 top，最暴力的强制位移
+                // 渲染到屏幕上
                 obj.el.style.left = obj.x + 'px';
                 obj.el.style.top = obj.y + 'px';
             }
         }
+
+        // 抛弃一切顾虑，每20毫秒无脑执行
+        setInterval(moveAds, 20);
 
             </script>
 </body>
