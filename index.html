@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGOI Oddeties Iceberg</title>
+    <style>
+        /* 引入您想要的 Garet 字体，若本地或同目录下有字体文件可取消注释并修改路径 */
+        /*
+        @font-face {
+            font-family: 'Garet';
+            src: url('assets/Garet.woff2') format('woff2');
+        }
+        */
+
+        /* 千禧年野生网页基础设置：取消现代居中和内边距，直接贴合浏览器边缘 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2b4476; /* 冰山深水区蓝色背景 */
+            font-family: 'Garet', 'Times New Roman', serif; /* 优先Garet，后备复古衬线体 */
+            overflow-x: hidden; /* 防止广告弹跳时出现横向滚动条 */
+        }
+
+        /* 冰山主容器：去除现代化的阴影圆角等，变回贴图原样 */
+        .iceberg-container {
+            position: relative;
+            width: 1000px;
+            height: 2300px;
+            background-image: url('assets/Tu3gODl0Yg.jpg'); /* 冰山背景图 */
+            background-size: cover;
+            background-position: top left;
+            
+        }
+
+        /* 右侧纯色遮挡板块 */
+        .right-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20%;
+            height: 100%;
+            background-color: #2b4476;
+            z-index: 1;
+        }
+
+        /* 闪烁+放大缩小动画 */
+        @keyframes flash-scale {
+            0% { transform: scale(1) rotate(-10deg); opacity: 1; }
+            50% { transform: scale(1.1) rotate(-10deg); opacity: 0.7; color: #fffacd; }
+            100% { transform: scale(1) rotate(-10deg); opacity: 1; }
+        }
+
+        /* 标题文字样式：保留闪烁效果 */
+        .title {
+            position: absolute;
+            top: 15%;
+            right: 5%;
+            color: #d7f154; 
+            font-size: 3.5rem;
+            font-weight: 900;
+            z-index: 10;
+            animation: flash-scale 1.2s infinite ease-in-out; 
+        }
+
+        /* 左侧链接区：去除现代 flex 间隔，使用古早的绝对定位或换行 */
+        .links-column {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            z-index: 10;
+            line-height: 150px; /* 粗暴的行高拉开间距 */
+        }
+
+        /* 千禧年质朴链接样式：15px，土蓝色，下划线，无背景 */
+        .links-column a {
+            display: block;
+            font-size: 15px;
+            color: #3b537a; /* 土土的暗蓝色 */
+            text-decoration: underline; /* 强制下划线 */
+            font-weight: bold;
+            background: none; /* 去除背景方框 */
+            padding: 0;
+        }
+        
+        .links-column a:hover {
+            color: #ff00ff; /* 千禧年标志性的死亡高亮粉紫，可自行更改 */
+        }
+
+        /* 角色图片绝对定位，保持野生的拼贴感 */
+        .img-pink { position: absolute; top: 26%; right: 28%; width: 130px; z-index: 5; }
+        .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 5; }
+
+        /* 流泪星星排版 */
+        .star { position: absolute; width: 50px; z-index: 5; }
+        .s1 { top: 52%; right: 8%; }
+        .s2 { top: 60%; right: 16%; }
+        .s3 { top: 68%; right: 24%; }
+        .s4 { top: 76%; right: 32%; }
+        .s5 { top: 84%; right: 40%; }
+        .s6 { top: 92%; right: 48%; }
+        .star s7 { position: absolute; top: 97%; right: 58%; width: 330px; z-index: 5;}
+
+        /* 弹窗广告样式 */
+        #bouncing-ad {
+            position: fixed;
+            z-index: 9999; /* 保证在最顶层 */
+            width: 200px; /* 您可根据素材实际比例调整大小 */
+            cursor: pointer;
+        }
+        #bouncing-ad img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #fff; /* 给小广告加个古早白边 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="iceberg-container">
+        <!-- 模拟参考图的右侧深色块 -->
+        <div class="right-panel"></div>
+
+        <div class="title">TGOI Oddeties!</div>
+
+        <!-- 左侧自上而下的超链接 -->
+        <div class="links-column">
+            <!-- 第 1 层 -->
+            <a href="https://nauseap.github.io/TGOIhomePage.io">🏠Homepage</a>
+            
+            <!-- 第 2 层 -->
+            <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30">预留链接位：浅水区事件</a>
+            
+            <!-- 第 3 层 -->
+            <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30">预留链接位：深水区档案</a>
+            
+            <!-- 第 4 层 -->
+            <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30">预留链接位：深渊区黑历史</a>
+        </div>
+
+        <!-- 角色图片 -->
+        <img src="assets/22.png" alt="粉发小神使" class="img-pink">
+        <img src="assets/lianyi.png" alt="红发涟漪" class="img-red">
+
+        <!-- 斜向排列的流泪星星 -->
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s1">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s2">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s3">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s4">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s5">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s6">
+        <img src="assets/u2b50_u1f972.png" alt="star" class="star s7">
+    </div>
+
+    <!-- 乱七八糟的弹窗广告 Register.GIF -->
+    <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="bouncing-ad" target="_blank">
+        <img src="assets/Register.GIF" alt="交易中心注册广告">
+    </a>
+
+    <!-- 弹窗广告运动脚本 -->
+    <script>
+        const ad = document.getElementById('bouncing-ad');
+        let x = 0; // 初始 X 坐标
+        let y = 0; // 初始 Y 坐标
+        let dx = 2.5; // 水平移动速度
+        let dy = 2.5; // 垂直移动速度
+
+        function animate() {
+            const rect = ad.getBoundingClientRect();
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+
+            // 碰到左右边缘反弹
+            if (x + rect.width >= winWidth || x <= 0) {
+                dx = -dx;
+            }
+            // 碰到上下边缘反弹
+            if (y + rect.height >= winHeight || y <= 0) {
+                dy = -dy;
+            }
+
+            x += dx;
+            y += dy;
+
+            ad.style.transform = `translate(${x}px, ${y}px)`;
+            requestAnimationFrame(animate);
+        }
+
+        // 启动动画
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
