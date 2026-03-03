@@ -158,16 +158,17 @@
             border-color: #000000 #dfdfdf #dfdfdf #000000;
         }
 
-        /* 弹窗广告样式：更改了ID名称防拦截，并显式指定初始坐标 */
-        #bouncing-window {
+        /* 弹窗广告样式：兼容多个广告，保证绝对定位 */
+        .bouncing-ads {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 9999; /* 保证在最顶层 */
-            width: 200px; /* 您可根据素材实际比例调整大小 */
+            z-index: 9999; 
+            width: 200px; /* 如果第二个广告很小，可以单独给它加id修改宽度 */
             cursor: pointer;
+            display: block;
         }
-        #bouncing-window img {
+        .bouncing-ads img {
             width: 100%;
             height: auto;
         }
@@ -213,6 +214,9 @@
         <!-- 解密后出现的隐藏图片 -->
         <a href="这里填入您隐藏图片的链接1" target="_blank"><img src="assets/Hidden1.PNG" alt="hidden1" class="hidden-img" id="h-img1"></a>
         <a href="这里填入您隐藏图片的链接2" target="_blank"><img src="assets/Hidden2.png" alt="hidden2" class="hidden-img" id="h-img2"></a>
+        <a href="这里填入您隐藏图片的链接3" target="_blank"><img src="assets/Hidden3.gif" alt="hidden3" class="hidden-img" id="h-img3"></a>
+        <a href="这里填入您隐藏图片的链接4" target="_blank"><img src="assets/Hidden4.jpg" alt="hidden4" class="hidden-img" id="h-img4"></a>
+        <a href="这里填入您隐藏图片的链接5" target="_blank"><img src="assets/Hidden5.png" alt="hidden5" class="hidden-img" id="h-img5"></a>
     </div>
 
     <!-- 弹出的密码输入窗口 -->
@@ -225,8 +229,13 @@
 
     
     <!-- 乱七八糟的弹窗广告 Register.GIF -->
-  <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="bouncing-window" target="_blank" style="display: block;">
+  <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="ad-1" class="bouncing-ads" target="_blank">
         <img src="assets/Register.GIF" alt="交易中心注册广告" onerror="this.src='assets/Register.Gif'; this.onerror=null;">
+    </a>
+    
+    <!-- 第二个新增的小广告：请将 src 替换为您实际的第二个广告素材文件名 -->
+    <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23" id="ad-2" class="bouncing-ads" target="_blank" style="width: 120px;">
+        <img src="assets/Ad2.gif" alt="第二个广告" onerror="this.src='assets/ad2.gif'; this.onerror=null;">
     </a>
 
   <!-- 密码验证与弹窗广告运动脚本 -->
@@ -245,61 +254,65 @@
                 // 密码正确：隐藏弹窗
                 document.getElementById('password-modal').style.display = 'none'; 
                 
-                // 抓取隐藏的图片元素
-                const hImg1 = document.getElementById('h-img1');
-                const hImg2 = document.getElementById('h-img2');
-                
-                // 设定随机范围，使其在 1000x2300 的冰山图内随机散布
-                // X轴范围大约 0~800 (留出一点右边距防止溢出), Y轴范围 0~2100
-                hImg1.style.top = Math.floor(Math.random() * 2100) + 'px';
-                hImg1.style.left = Math.floor(Math.random() * 800) + 'px';
-                hImg1.style.display = 'block';
-
-                hImg2.style.top = Math.floor(Math.random() * 2100) + 'px';
-                hImg2.style.left = Math.floor(Math.random() * 800) + 'px';
-                hImg2.style.display = 'block';
+// 批量抓取隐藏的图片元素并随机散布
+                const hiddenImages = ['h-img1', 'h-img2', 'h-img3', 'h-img4', 'h-img5'];
+                hiddenImages.forEach(id => {
+                    const img = document.getElementById(id);
+                    if (img) {
+                        img.style.top = Math.floor(Math.random() * 2100) + 'px';
+                        img.style.left = Math.floor(Math.random() * 800) + 'px';
+                        img.style.display = 'block';
+                    }
+                });
             } else {
                 alert("密码错误，请重试！");
             }
         }
 
- // 更改为获取新的防拦截ID
-        const ad = document.getElementById('bouncing-window');
-        let x = 0; // 初始 X 坐标
-        let y = 0; // 初始 Y 坐标
-        let dx = 2.5; // 水平移动速度
-        let dy = 2.5; // 垂直移动速度
+        // 配置多个广告的速度与初始位置
+        const adList = [
+            { el: document.getElementById('ad-1'), x: 0, y: 0, dx: 3.5, dy: 3.5 },     // 广告1速度较快
+            { el: document.getElementById('ad-2'), x: 200, y: 150, dx: -2.0, dy: 2.0 } // 广告2速度较慢，反向移动
+        ];
 
-        function animate() {
-            if (!ad) return; // 防止未获取到元素时报错
-            const rect = ad.getBoundingClientRect();
+        function moveAds() {
             const winWidth = window.innerWidth;
             const winHeight = window.innerHeight;
 
-            // 加入容错：防止图片未加载时宽度为0导致卡死在边缘
-            let currentWidth = rect.width || 200;
-            let currentHeight = rect.height || 100;
+            for (let i = 0; i < adList.length; i++) {
+                let obj = adList[i];
+                if (!obj.el) continue;
 
-            // 碰到左右边缘反弹
-            if (x + currentWidth >= winWidth || x <= 0) {
-                dx = -dx;
+                let currentWidth = obj.el.offsetWidth || 200;
+                let currentHeight = obj.el.offsetHeight || 100;
+
+                // 碰到左右边缘：强制拉回并反向
+                if (obj.x + currentWidth >= winWidth) {
+                    obj.x = winWidth - currentWidth;
+                    obj.dx = -Math.abs(obj.dx);
+                } else if (obj.x <= 0) {
+                    obj.x = 0;
+                    obj.dx = Math.abs(obj.dx);
+                }
+
+                // 碰到上下边缘：强制拉回并反向
+                if (obj.y + currentHeight >= winHeight) {
+                    obj.y = winHeight - currentHeight;
+                    obj.dy = -Math.abs(obj.dy);
+                } else if (obj.y <= 0) {
+                    obj.y = 0;
+                    obj.dy = Math.abs(obj.dy);
+                }
+
+                obj.x += obj.dx;
+                obj.y += obj.dy;
+
+                // 抛弃 transform，直接修改绝对定位的 left 和 top，最暴力的强制位移
+                obj.el.style.left = obj.x + 'px';
+                obj.el.style.top = obj.y + 'px';
             }
-            // 碰到上下边缘反弹
-            if (y + currentHeight >= winHeight || y <= 0) {
-                dy = -dy;
-            }
-
-            x += dx;
-            y += dy;
-
-            ad.style.transform = `translate(${x}px, ${y}px)`;
-            requestAnimationFrame(animate);
         }
 
-        // 关键修复：确保整个页面和图片完全加载完成后，再启动动画
-        window.onload = function() {
-            requestAnimationFrame(animate);
-        };
             </script>
 </body>
 </html>
