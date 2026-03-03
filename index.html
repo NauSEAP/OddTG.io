@@ -90,7 +90,10 @@
         /* 角色图片绝对定位，保持野生的拼贴感 */
         .img-pink { position: absolute; top: 26%; right: 28%; width: 130px; z-index: 5; }
         .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 5; }
-
+        .img-amigo { position: absolute; top: 10%; right: 50%; width: 300px; z-index: 5; }
+        .img-dog { position: absolute; top: 70%; right: 5%; width: 100px; z-index: 5; }
+        
+        
         /* 流泪星星排版 */
         .star { position: absolute; width: 50px; z-index: 5; }
         .s1 { top: 52%; right: 8%; }
@@ -157,7 +160,43 @@
         #password-modal button:active {
             border-color: #000000 #dfdfdf #dfdfdf #000000;
         }
+        /* 友站链接弹窗样式（经典的 Windows 98 风格） */
+        #links-modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #c0c0c0;
+            border: 2px solid; border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            padding: 2px; z-index: 10005;
+            text-align: center; width: 300px;
+        }
+        .modal-header {
+            background-color: #000080; color: white; padding: 2px 5px; text-align: left;
+            font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+        }
+        .close-btn {
+            background-color: #c0c0c0; color: black; border: 2px solid; border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            cursor: pointer; padding: 0 4px; font-size: 12px; font-weight: bold;
+        }
+        .close-btn:active { border-color: #000000 #dfdfdf #dfdfdf #000000; }
+        .modal-body { padding: 15px; }
+        #links-modal select {
+            width: 90%; margin-bottom: 10px; background: #fff; border: 2px solid;
+            border-color: #000000 #dfdfdf #dfdfdf #000000; padding: 3px;
+        }
+        .snapshot-container {
+            width: 90%; height: 120px; margin: 0 auto 10px; border: 2px inset #dfdfdf; background: #fff;
+            display: flex; align-items: center; justify-content: center; color: #666; overflow: hidden; font-size: 14px;
+        }
+        .snapshot-container img { max-width: 100%; max-height: 100%; display: none; }
+        #links-modal button {
+            padding: 4px 15px; border: 2px solid; border-color: #dfdfdf #000000 #000000 #dfdfdf;
+            background: #c0c0c0; cursor: pointer;
+        }
+        #links-modal button:active { border-color: #000000 #dfdfdf #dfdfdf #000000; }
 
+        
         /* 弹窗广告样式：兼容多个广告，保证绝对定位 */
         .bouncing-ads {
             position: fixed;
@@ -198,13 +237,16 @@
         </div>
 
         <!-- 角色图片 -->
-        < <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9" target="_blank">
+        <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9" target="_blank">
             <img src="assets/22.png" alt="粉" class="img-pink">
         </a>
-        
+        <img src="assets/dog.gif" alt="粉" class="img-dog">
         <a href="https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-14" target="_blank">
             <img src="assets/lianyi.png" alt="红发涟漪" class="img-red">
         </a>
+        <!-- 给 amigos.gif 加上点击跳出友站弹窗的开关代码，并加上小手指针 -->
+        <img src="assets/amigos.gif" alt="amigos" style="cursor: pointer; position: absolute; top: 0%; left: 50%; width: 500px; z-index: 20;" onclick="document.getElementById('links-modal').style.display='block'; updateSiteInfo();">
+
 
               <!-- 斜向排列的流泪星星 -->
         <img src="assets/u2b50_u1f972.png" alt="star" class="star s1">
@@ -224,6 +266,7 @@
         <a href="这里填入您隐藏图片的链接5" target="_blank"><img src="assets/Hidden5.png" alt="hidden5" class="hidden-img" id="h-img5"></a>
     </div>
 
+
     <!-- 弹出的密码输入窗口 -->
     <div id="password-modal">
         <p>请输入正确的账户及密码，新用户输入账户即登记为注册</p>
@@ -231,6 +274,28 @@
         <input type="text" placeholder="密码为网站作者的任意网名的拼音" id="pwd-input">
         <button onclick="checkPassword()">确认</button>
     </div>
+    
+
+    <!-- 友站链接弹窗 -->
+    <div id="links-modal">
+        <div class="modal-header">
+            <span>友站链接</span>
+            <button class="close-btn" onclick="document.getElementById('links-modal').style.display='none'">X</button>
+        </div>
+        <div class="modal-body">
+            <select id="site-select" onchange="updateSiteInfo()">
+                <option value="site1">站点1 (待更新)</option>
+                <option value="site2">站点2 (预留槽位)</option>
+                <option value="site3">站点3 (预留槽位)</option>
+            </select>
+            <div class="snapshot-container">
+                <span id="snapshot-text">待更新</span>
+                <img id="snapshot-img" src="" alt="网页快照">
+            </div>
+            <button onclick="jumpToSite()">跳转</button>
+        </div>
+    </div>
+
 
     
     <!-- 乱七八糟的弹窗广告 Register.GIF -->
@@ -271,6 +336,41 @@
                 });
             } else {
                 alert("密码错误，请重试！");
+            }
+        }
+            // ================= 友站链接弹窗的控制逻辑 =================
+        const siteData = {
+            "site1": { url: "#", text: "待更新", img: "" }, 
+            "site2": { url: "https://nauseap.github.io/TGOIhomePage.io", text: "", img: "assets/Hidden4.jpg" }, 
+            "site3": { url: "https://nauseap.github.io/TGOIhomePage.io", text: "", img: "assets/Hidden5.png" }  
+        };
+
+        function updateSiteInfo() {
+            const select = document.getElementById('site-select');
+            const data = siteData[select.value]; 
+            
+            const textEl = document.getElementById('snapshot-text');
+            const imgEl = document.getElementById('snapshot-img');
+            
+            if (data.img) {
+                imgEl.src = data.img;
+                imgEl.style.display = 'block';
+                textEl.style.display = 'none';
+            } else {
+                imgEl.style.display = 'none';
+                textEl.innerText = data.text || "待更新";
+                textEl.style.display = 'block';
+            }
+        }
+
+        function jumpToSite() {
+            const select = document.getElementById('site-select');
+            const url = siteData[select.value].url;
+            
+            if (url && url !== "#") {
+                window.open(url, '_blank'); 
+            } else {
+                alert("该站点尚未更新！");
             }
         }
 
