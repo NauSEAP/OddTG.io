@@ -86,9 +86,9 @@
             pointer-events: none; /* 【关键修复】让这块透明的玻璃板彻底失去实体，不阻挡下方任何图片的点击！ */
         }
         #lvl-1 { top: 5%; height: 25%; }
-        #lvl-2 { top: 25%; height: 25%; }
-        #lvl-3 { top: 50%; height: 25%; }
-        #lvl-4 { top: 75%; height: 25%; }
+        #lvl-2 { top: 28%; height: 30%; }
+        #lvl-3 { top: 60%; height: 20%; }
+        #lvl-4 { top: 80%; height: 20%; }
 
         /* 词条基础样式 */
         .entry-link {
@@ -453,7 +453,9 @@
         const entriesData = [
             // 方式1: level (1-4) | 方式2: style (a-e) | 方式3: type (A/B/C)
             // 【新增开关】：只要在最后面加上 sound: true，这个词条点击时就会发出特殊音效。
+            //如果想要透明只要再加style: 'blank'
             // type: 'A' 需要填 url，'B' 需要填 imgSrc，'C' 需要填 contentText
+            
             { text: "　　　　　　　第一行为词条介绍。The first row is introduction of entity Classification.　　　　　　　　　　　", level: 1 , style: 'blank'},
 
             { text: "🏠主页 / Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
@@ -466,55 +468,60 @@
             { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1},
             //分行符，如果想要透明只要再加style: 'blank'
             { text: "年份不重要", level: 1, style: 'e', sound: true , type: 'C', contentText: "任意窗口界面中提到的【年份】並不重要，\n 年份僅作記錄用，但是確實也是（並不太）嚴謹的時間曆法。本網站的目的除了自娛自樂以外，更加期望讀者能體驗點擊的樂趣。\n ||如果您感興趣，也可結合年份探索事件的關聯。||" },
-            
+            { text: "原來有大綱啊！", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30" },
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1 , style: 'blank'},
             { text: "上原托马斯 / Uehara Thomas", level: 1, style: 'c', type: 'A', url : "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9"},
             { text: "星野泪人 / Hoshino NamidaHito", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-6" },
             { text: "米歇尔 / Saint Michel", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-5" },
-            { text: "天堂与神使", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-2", sound: true },
+            { text: "天堂 / 神使和天使", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-3", sound: true },
+            { text: "青河 / 青河大陆", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-16", sound: true },
 
-            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1 , style: 'blank'},
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1},
+            { text: "漣漪 / Ripple", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-14"},
+            { text: "地獄 / 地獄", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-22" },
             { text: "托马斯她家", level: 1, style: 'b', sound: true , type: 'C', contentText: "【奇迹税务局】\n是星野设立于混沌大陆原始森林深处的粗野主义建筑，税务局只是个名字而已。\n若离开分配的房间，将迷失在烂尾楼般的钢筋混凝土走廊中。若在局内无所事事时间过长，将异化为虚无的黑影伪人。" },
             { text: "托马斯和星野 / Thomas and Hoshino", level: 1, style: 'd', sound: true, type: 'C', contentText:"托马斯在被捡回税务局后，认星野作母。hsn对TMS的感情在逐渐加深中。米歇尔很喜欢tms，他也认为hsn把tms当成养女很萌。" },
             { text: "星野总是被操 / Hoshino always appears with Adult Contents", level: 1, style: 'e', sound: true, type: 'C', contentText:"我们都知道星野一直在被草。这其实是一个谣传，他其实没有整天被草！！！但是既然你那么想看，那么请点击星野被草主页。 / Holy crap stop insulting Hoshino by his being a bottom. Butt if you like to see him getting fucked please click the next link." },
-            { text: "🗃️Popiku / Hoshino NSFW", level: 1, style: 'a', type: 'A', url :"https://poipiku.com/719483/" },
-            { text: "青河大陆", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-16", sound: true },
-
-            { text: "夏日度假", level: 1, style: 'd', sound: true, type: 'C', contentText:"待整理"},
-            { text: "浅水区事件", level: 1, style: 'd', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30" },
-            { text: "星野和米歇尔的关系被一千个人好奇",sound: true, level: 1, style: 'd', type: 'C', contentText:"是某种亲密关系，大概家人及恋人吧，我也不懂，但是不要再骂他们了！"},
+            { text: "🗃️星野被操主頁 / Popiku", level: 1, style: 'a', type: 'A', url :"https://poipiku.com/719483/" },
+            { text: "天使組到底什麼關係",sound: true, level: 1, style: 'd', type: 'C', contentText:"【星野淚人】和【米歇爾】是某种亲密关系，大概家人及恋人吧，我也不懂，但是不要再骂他们了！"},
             { text: "涟漪想草星野是因为被星野PUA了", level: 1, sound: true, style: 'd', type: 'A', url: "https://writee.org/nauseap/jia-zhuang-wo-shi-xie-si-di-li-de-xiang-shou-zhe" },
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
-            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1},
-            //如果想要透明只要再加style: 'blank'
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
+            { text: "青河 / 青河", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-17" },
+            { text: "青河 / 青河城郊", level: 1, style: 'b', type: 'C', contentText: "/待整理\n 以防你看到了這裡，【青河】通常指青河（城），即青河主城區；\n 【青河】南鄰海峽，在東南處座落狹長的【東城區】，以經濟中心和生態城聞名。\n 此外較為著名的還有坐落東北平原的【西郊區】，【西郊區】和【青河】之間有貧民區及群山相隔。" },
+            { text: "夏日度假", level: 1, style: 'd', sound: true, type: 'C', contentText:"待整理"},
             //====水面之下=====
             { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2},
-            { text: "奇迹税务局", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23", sound: true },
+            { text: "其他 / 奇迹税务局", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-23", sound: true },
             { text: "所有角色都抹了发胶", level: 2, style: 'e', type: 'B', imgSrc: "assets/Hidden4.jpg" },
-            { text: "太阳马戏团", level: 2, style: 'b', type: 'A' , url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-19" },
-            { text: "星野的悲惨经历", level: 2, style: 'd', sound: true, type: 'C', contentText:"太阳马戏团：生物方向的临时实验机构。位于极东地区的盆地平原。星野涙人曾在此作为留观实验体，遭受非人道实验并最终导致认知功能受损。" },
-            { text: "圣学院", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-4" },
-            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2},
+            { text: "殺手兔一族和星野", level: 2, style: 'd', sound: true, type: 'C', contentText:"太阳马戏团：生物方向的临时实验机构。位于极东地区的盆地平原。星野涙人曾在此作为留观实验体，遭受非人道实验并最终导致认知功能受损。" },
+            { text: "天堂 / 圣学院", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-4" },
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2, style: 'blank'},
+            { text: "米歇爾常常覺得覺得“怎麼這樣！”", level: 2, style: 'e', type: 'A', url: "https://writee.org/nauseap/yu-fen-fen-de-chun-tian" },
+            { text: "托馬斯日記 / 绵长的碧波与短波的无线电", level: 2, style: 'e', type: 'A', url:"https://writee.org/nauseap/mian-chang-de-bi-bo-yu-duan-bo-de-wu-xian-dian" },
+            { text: "🐱托馬斯日記", level: 2, style: 'e', type: 'A', url:"https://writee.org/nauseap/tuo-ma-si-ri-ji" },
+            { text: "托馬斯考察星野的爛攤子", level: 2, style: 'd', type: 'A', url: "https://writee.org/nauseap/nao-miso", sound: true },
 
-            { text: "杀手兔一族", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-20", sound: true },
+            { text: "米歇爾不是米歇爾的本名", level: 2, style: 'c', type: 'C', contentText:"米歇尔是繼承天使長職位後的名字。米歇爾的本名不为人知，甚至連他自己都有些不確定了。\n 那些記憶是確實存在的嗎？⋯⋯不過，那些zeroday又證明了這一點。" },
+
+            { text: "外族 / 杀手兔一族", level: 2, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-20", sound: true },
             { text: "车里矢", level: 2, style: 'c', type: 'C', contentText: "【圆桌会雇员】负责神使康复的全科医生。拥有超能力“悉知”，能准确避开医闹。对星野的态度是尴尬和无奈。" },
             { text: "渡淳明夫", level: 2, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-29" },
-            { text: "星野曾经在青河卧底时留下的麻烦", level: 2, style: 'd', type: 'A', url: "https://writee.org/nauseap/nao-miso", sound: true },
             
-            { text: "星野和太阳马戏团的和解", level: 2, style: 'd', sound: true, type: 'C', contentText:"在星野下到人间后，他想去寻仇，来到旧址却发现太阳马戏团已经解散，即便破坏一切也没有用了。" },
-            { text: "神经过适应症", level: 2, style: 'e', sound: true, type: 'C', contentText:"信息过适应症并非简单的“信息过载”，而是一种大脑为了处理极端数据流而进行的病态性重组（maladaptive neuroplasticity）。"},
-            { text: "同分异构体：电脑娘", level: 2, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-10", sound: true },
+            { text: "电脑娘", level: 2, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-10", sound: true },
 
             //====深水=====
+            { text: "青河 / 太阳马戏团", level: 3, style: 'b', type: 'A' , url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-19" },
+
             { text: "銀色的魔女", level: 3, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-7" },
-
+            { text: "東城區外島的導彈發射基地", level: 3, style: 'e', type: 'C', contentText: "陰謀論/已證實 \n 待整理啦！" },
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2},
+            { text: "其他 / けろ修道院", level: 3, style: 'b', type: 'C', contentText: " 漣漪在【？？？？】年建立的庇護所。\n 待整理啦！", sound: true },
+            { text: "神經過适应症", level: 3, style: 'e', sound: true, type: 'C', contentText:"信息过适应症并非简单的“信息过载”，而是一种大脑为了处理极端数据流而进行的病态性重组（maladaptive neuroplasticity）。"},
             { text: "神经抑制剂", level: 3, style: 'e', sound: true, type: 'C', contentText:"托马斯要使用的东西。\nTT生物制剂\n- 稳定制剂\n缓解患者后的冲击性截断反应，促进芯片切除后的神经重塑。促脑源性营养因子的分化促进多巴胺神经元再生长，预防戒断反应，并且作用于受损的前额叶皮层，促进神经发生与重塑。\n- 抑制制剂\n针对于在语言认知脑区的GABA-A受体的靶向药物。"},
-
-            { text: "製藥門", level: 3, style: 'e', type: 'C', contentText: "見下一詞條。待整理\n陰謀論：發生於約【2440年】，據說和民航禁飛事件及電交信號新發展相關聯" },
+            { text: "製藥門", level: 3, style: 'e', type: 'C', contentText: "見下一詞條。待整理\n 陰謀論/已證實 ：發生於約【2440年】，據說和民航禁飛事件及電交信號新發展相關聯" },
             { text: "制药門（舊歸檔）", sound: true, level: 3, style: 'f', type: 'A', url: "https://nauseap.github.io/TGOInfinite.org/#20250527014237-o0xuef8" },
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2},
+            { text: "星野和太阳马戏团的和解", level: 3, style: 'd', sound: true, type: 'C', contentText:"在星野下到人间后，他想去寻仇，来到旧址却发现太阳马戏团已经解散，即便破坏一切也没有用了。" },
+            { text: "📰舊認知 / 東城區是世界的盡頭", level: 3, style: 'f', type: 'C', contentText: "廣泛認可的錯誤觀點/已證實\n據說東城區是世界的盡頭，出了東城區就再也沒有陸地了。實際上東城區之外存在大量的海洋山脈和岛屿。" },
             { text: "Body Part Conciousness", sound: true, level: 3, style: 'd', type: 'C', contentText: "意识起源 \n天堂相关实验所直至十年前還在持續进行意识模拟实验，目标是测试被拼接的神使身体碎片是否可能产生主体意识。实验方法为将拟造或异体尸体碎片拼装至神使身上并训练其反应，意图探索灵魂是否能被肉体复制以及拼接肢体是否能孕育自我意识。实验制造出集多个意识痕迹与残留反应为一体的构造体残片，具备类似灵魂模仿系统，有限度的感知与语言模拟能力。 " },
 
             //====不為人知=====
