@@ -47,7 +47,7 @@
         /* 闪烁+放大缩小动画 */
         @keyframes flash-scale {
             0% { transform: scale(1) rotate(-10deg); opacity: 1; }
-            50% { transform: scale(1.1) rotate(-10deg); opacity: 0.7; color: #fffacd; }
+            50% { transform: scale(1.5) rotate(-10deg); opacity: 0.9; color: #fffacd; }
             100% { transform: scale(1) rotate(-10deg); opacity: 1; }
         }
 
@@ -55,10 +55,10 @@
         .title {
             position: absolute;
             top: 15%;
-            right: 5%;
-            color: #d7f154; 
-            font-size: 3.5rem;
-            font-weight: 900;
+            right: -15%;
+            color: #fcff5c; 
+            font-size: 4.5rem;
+            font-weight: 700;
             z-index: 1000;
             animation: flash-scale 1.2s infinite ease-in-out; 
         }
@@ -85,7 +85,7 @@
             z-index: 10;
             pointer-events: none; /* 【关键修复】让这块透明的玻璃板彻底失去实体，不阻挡下方任何图片的点击！ */
         }
-        #lvl-1 { top: 0; height: 25%; }
+        #lvl-1 { top: 5%; height: 25%; }
         #lvl-2 { top: 25%; height: 25%; }
         #lvl-3 { top: 50%; height: 25%; }
         #lvl-4 { top: 75%; height: 25%; }
@@ -104,11 +104,13 @@
 
 
         /* 词条分类方式 2：颜色样式 (a, b, c, d, e) */
-        .style-a { color: #3b537a; text-decoration-color: #3b537a; } .style-a:hover { color: #ff00ff; text-decoration-color: #ff00ff; }
-        .style-b { color: #d7f154; text-decoration-color: #d7f154; } .style-b:hover { color: #ffffff; text-decoration-color: #ffffff; }
-        .style-c { color: #ff5555; text-decoration-color: #ff5555; } .style-c:hover { color: #ffff00; text-decoration-color: #ffff00; }
-        .style-d { color: #aaaaaa; text-decoration-color: #aaaaaa; } .style-d:hover { color: #00ff00; text-decoration-color: #00ff00; }
-        .style-e { color: #00ffff; text-decoration-color: #00ffff; } .style-e:hover { color: #ff0000; text-decoration-color: #ff0000; }
+        .style-a { color: #533a34; text-decoration-color: #533a34; } .style-a:hover { color: #ff00ff; text-decoration-color: #ff00ff; }
+        .style-b { color: #fff86a; text-decoration-color: #fef37d; } .style-b:hover { color: #ffffff; text-decoration-color: #ffffff; }
+        .style-c { color: #ffa16a; text-decoration-color: #ffa16a; } .style-c:hover { color: #ffff00; text-decoration-color: #ffff00; }
+        .style-d { color: #adfa42; text-decoration-color: #adfa42; } .style-d:hover { color: #00ffff; text-decoration-color: #00ffff; }
+        .style-e { color: #dda7dd; text-decoration-color: #dabbda; } .style-e:hover { color: #ff1212; text-decoration-color: #ff0000; }
+        .style-f { color: #3adafa; text-decoration-color: #3adafa; } .style-f:hover { color: #00ff62; text-decoration-color: #00ff62; }
+
         .style-blank { text-decoration: none !important; pointer-events: none; }
 
         /* 词条分类方式 3：B类(图片)与C类(文字)弹窗的专属样式 */
@@ -122,11 +124,11 @@
  
 
         /* 角色图片排版 */
-        .img-pink { position: absolute; top: 26%; right: 28%; width: 130px; z-index: 5; }
-        .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 5; }
-        .img-amigo { position: absolute; top: 10%; right: 50%; width: 200px; z-index: 5; }
+        .img-pink { position: absolute; top: 26%; right: 20%; width: 130px; z-index: 10; }
+        .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 10; }
+
         .img-dog { position: absolute; top: 70%; right: 5%; width: 100px; z-index: 5; }
-        .img-glm { position: absolute; top: 50%; right: 55%; width: 100px; z-index: 5; }
+        .img-glm { position: absolute; top: 50%; right: 55%; width: 100px; z-index: 10; }
         
         
         /* 流泪星星排版 */
@@ -288,7 +290,7 @@
         <!--使用例：<img src="assets/lianyi.png" class="img-red" onmousedown="document.getElementById('special-sound').play()">-->
         <img src="assets/Gloomy.jpg" alt="kkk" class="img-glm" style="cursor: pointer;" onclick="handleAction('C','AH.......I am so glommy now.')">
         <!-- 给 amigos.gif 加上点击跳出友站弹窗的开关代码，并加上小手指针 -->
-        <img src="assets/amigos.gif" alt="amigos" style="cursor: pointer; position: absolute; top: 0%; left: 50%; width: 300px; z-index: 20;" onclick="document.getElementById('links-modal').style.display='block';  updateSiteInfo();">
+        <img src="assets/amigos.gif" alt="amigos" style="cursor: pointer; position: absolute; top: 0%; left: 55%; width: 250px; z-index: 20;" onclick="document.getElementById('links-modal').style.display='block';  updateSiteInfo();">
 
 
               <!-- 斜向排列的流泪星星 -->
@@ -406,19 +408,28 @@
         // 后续只需在此处添加词条，网页会自动将其分类排版！
         const entriesData = [
             // 方式1: level (1-4) | 方式2: style (a-e) | 方式3: type (A/B/C)
-
+            // 【新增开关】：只要在最后面加上 sound: true，这个词条点击时就会发出特殊音效。
             // type: 'A' 需要填 url，'B' 需要填 imgSrc，'C' 需要填 contentText
             { text: "　　　　　　　第一行为词条介绍。The first row is introduction of entity varification.　　　　　　　　　　　", level: 1 , style: 'blank'},
 
-            { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
-            { text: "🏢种族势力与组织", level: 1, style: 'b', type: 'C', contentText: "种族势力与组织！该词条下大概有天堂2神使与天使3圣学院4青河16青河17(城)青河城郊18太阳马戏团19外族杀手兔一族20魔女和精灵21地狱22其他奇迹税务局23" },
-            
+            { text: "🏠主页 / Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
+            { text: "🏢种族势力与组织 / Institutions and forces", level: 1, style: 'b', type: 'C', contentText: "种族势力与组织！该词条下大概有天堂2神使与天使3圣学院4青河16青河17(城)青河城郊18太阳马戏团19外族杀手兔一族20魔女和精灵21地狱22其他奇迹税务局23" , sound: true},
+            { text: "👶人物 / Characters", level: 1, style: 'c', sound: true, type: 'C', contentText:"人物介绍。都有什么？当然是角色呀！从上往下，越往下越不为人知。Finished & some unfinished characters are here." },
+            { text: "💊事件 / Incidents", level: 1, style: 'd', sound: true, type: 'C', contentText:"事件及其介绍，还有和事件相关的设定，现在仍旧适用。Incidents and things about incidents， available and worth digging." },
+            { text: "❓未归类 / Unclassified", level: 1, style: 'e', sound: true, type: 'C', contentText:"不知道怎么描述这一大类。Some settings that I dk where to put." },
+            { text: "🔮旧归档 / Archives", level: 1, style: 'f', sound: true, type: 'C', contentText:"完成的故事归档以及旧设定，不确定且不一定适用于现设定。Archived stories and old settings. Some of them are not available today." },
+
             { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1},
             //分行符，如果想要透明只要再加style: 'blank'
-            { text: "Thomas", level: 1, style: 'a', type: 'B', imgSrc: "assets/22.png"},
-            { text: "Hoshino NamidaHito", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-6" },
+            { text: "上原托马斯 / Uehara Thomas", level: 1, style: 'c', type: 'A', url : "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9"},
+            { text: "星野泪人 / Hoshino NamidaHito", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-6" },
+            { text: "米歇尔 / Saint Michel", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-5" },
+
             { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1 , style: 'blank'},
-            { text: "浅水区事件", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30" },
+            { text: "托马斯和星野 / Thomas and Hoshino", level: 1, style: 'd', sound: true, type: 'C', contentText:"托马斯在被捡回税务局后，认星野作母。hsn对TMS的感情在逐渐加深中。米歇尔很喜欢tms，他也认为hsn把tms当成养女很萌。" },
+            { text: "星野总是被操 / Hoshino always appears with Adult Contents", level: 1, style: 'e', sound: true, type: 'C', contentText:"我们都知道星野一直在被草。这其实是一个谣传，他其实没有整天被草！！！但是既然你那么想看，那么请点击星野被草主页。 / Holy crap stop insulting Hoshino by his being a bottom. Butt if you like to see him getting fucked please click the next link." },
+            { text: "🗃️Popiku / Hoshino NSFW", level: 1, style: 'a', type: 'A', url :"https://poipiku.com/719483/" },
+            { text: "夏日度假", level: 1, style: 'b', sound: true, type: 'C', contentText:"待整理"},
             { text: "浅水区事件", level: 1, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-30" },
             { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
             { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
@@ -430,10 +441,19 @@
             { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
             { text: "🏠Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
             //====水面之下=====
+            { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 2},
             { text: "神秘照片演示", level: 2, style: 'c', type: 'B', imgSrc: "assets/Hidden4.jpg" },
-            
+            { text: "太阳马戏团", level: 2, style: 'b', type: 'A' , url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-19" },
+            { text: "太阳马戏团和星野", level: 2, style: 'd', sound: true, type: 'C', contentText:"太阳马戏团：生物方向的临时实验机构。位于极东地区的盆地平原。星野涙人曾在此作为留观实验体，遭受非人道实验并最终导致认知功能受损。" },
+
+
+
+
+
+            { text: "神经抑制剂", level: 2, style: 'e', sound: true, type: 'C', contentText:"托马斯要使用的东西。TT生物制剂　　　　　　　- 稳定制剂/缓解患者后的冲击性截断反应，促进芯片切除后的神经重塑。促脑源性营养因子的分化促进多巴胺神经元再生长，预防戒断反应，并且作用于受损的前额叶皮层，促进神经发生与重塑。　　　　　　　- 抑制制剂/针对于在语言认知脑区的GABA-A受体的靶向药物。"},
             //====深水=====
             { text: "绝密档案演示", level: 3, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
+            { text: "制药门", level: 3, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
             
             //====不為人知，深=====
             { text: "The Drug Gate is reported deliberately", level: 4, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" }
@@ -445,6 +465,17 @@
                 let a = document.createElement('a');
                 a.className = `entry-link style-${item.style}`;
                 a.innerText = item.text;
+
+                // 只有当您在字典里明确写了 sound: true 时，才会装载这个发声模块
+                if (item.sound === true) {
+                    a.addEventListener('mousedown', () => {
+                        let specialAudio = document.getElementById('special-sound');
+                        if (specialAudio) {
+                            specialAudio.currentTime = 0; // 重置进度，支持快速连点
+                            specialAudio.play().catch(e => {});
+                        }
+                    });
+                }
 
                 // 判断功能分类 A / B / C
                 if (item.type === 'A') {
