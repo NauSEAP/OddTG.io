@@ -100,6 +100,7 @@
             padding: 5px;
             transition: all 0.2s;
             pointer-events: auto; /* 【关键修复】虽然玻璃板失去了实体，但保留词条文字本身的点击功能 */
+            text-shadow: -0.5px 0px 2.5px rgba(23, 52, 124, 0.943); 
         }
 
 
@@ -108,7 +109,7 @@
         .style-b { color: #fff86a; text-decoration-color: #fef37d; } .style-b:hover { color: #ffffff; text-decoration-color: #ffffff; }
         .style-c { color: #ffa16a; text-decoration-color: #ffa16a; } .style-c:hover { color: #ffff00; text-decoration-color: #ffff00; }
         .style-d { color: #adfa42; text-decoration-color: #adfa42; } .style-d:hover { color: #00ffff; text-decoration-color: #00ffff; }
-        .style-e { color: #dda7dd; text-decoration-color: #dabbda; } .style-e:hover { color: #ff1212; text-decoration-color: #ff0000; }
+        .style-e { color: #e7bde7; text-decoration-color: #dabbda; } .style-e:hover { color: #ff1212; text-decoration-color: #ff0000; }
         .style-f { color: #3adafa; text-decoration-color: #3adafa; } .style-f:hover { color: #00ff62; text-decoration-color: #00ff62; }
 
         .style-blank { text-decoration: none !important; pointer-events: none; }
@@ -129,7 +130,7 @@
 
         .img-dog { position: absolute; top: 70%; right: 5%; width: 100px; z-index: 5; }
         .img-glm { position: absolute; top: 50%; right: 55%; width: 100px; z-index: 10; }
-        
+        .img-seal { position: absolute; top: 12%; right: 15%; width: 50px; z-index: 10; }
         
         /* 流泪星星排版 */
         .star { position: absolute; width: 50px; z-index: 5; }
@@ -288,7 +289,8 @@
         <img src="assets/dog.gif" alt="粉" class="img-dog", onclick="handleAction()">
         <img src="assets/lianyi.png" alt="红发涟漪" class="img-red" style="cursor: pointer;" onclick="handleAction('A','https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-14')">
         <!--使用例：<img src="assets/lianyi.png" class="img-red" onmousedown="document.getElementById('special-sound').play()">-->
-        <img src="assets/Gloomy.jpg" alt="kkk" class="img-glm" style="cursor: pointer;" onclick="handleAction('C','AH.......I am so glommy now.')">
+        <img src="assets/Gloomy.jpg" alt="kkk" class="img-glm" style="cursor: pointer;" onclick="showGloomyText()">
+        <img src="assets/seal2.gif" alt="kkk" class="img-seal" style="cursor: pointer;" onclick="showSealText()">
         <!-- 给 amigos.gif 加上点击跳出友站弹窗的开关代码，并加上小手指针 -->
         <img src="assets/amigos.gif" alt="amigos" style="cursor: pointer; position: absolute; top: 0%; left: 55%; width: 250px; z-index: 20;" onclick="document.getElementById('links-modal').style.display='block';  updateSiteInfo();">
 
@@ -403,6 +405,46 @@
                 document.getElementById('content-modal').style.display = 'block';
             }
         }
+        
+        // ======= 0.9 随机台词生成器 =======
+        const gloomyTexts = [
+            "AH.......I am so glommy now.",
+            "Even don't want to move anymore.",
+            "How to express?",
+            "Why are you still clicking on me?",
+            "Does anyone want to talk with me?",
+            "/n氂歞腍？◼︎蠖丣檆埓？#",
+            "Can we meet in reality?",
+            "Happy CIH day!"
+        ];
+
+        function showGloomyText() {
+            // 每次点击时，利用 Math.random() 随机抽取数组里的一句话
+            const randomText = gloomyTexts[Math.floor(Math.random() * gloomyTexts.length)];
+            
+            // 复用我们之前的 C类 弹窗引擎把它显示出来
+            handleAction('C', randomText);
+        }
+
+        const SealText = [
+            "HIIIIIII!!",
+            "I am Seal! I am the mascot of this iceberg!",
+            "I am so happy to see you here!!",
+            "Don't hit me, I am just a cute seal!!",
+            "I say don't hit me again!!",
+            "Owch, stop it!!",
+            "I am not a punching bag!!",
+            "Ow ow Owch, that hurts!!",
+            "那隻海豹死了。鸌䱛？妳☹︎罃絠好奇。但是這不是你的錯，Hit the seal是一個經典的網絡梗。"
+        ];
+
+        function showSealText() {
+            // 每次点击时，利用 Math.random() 随机抽取数组里的一句话
+            const randomText = SealText[Math.floor(Math.random() * SealText.length)];
+            
+            // 复用我们之前的 C类 弹窗引擎把它显示出来
+            handleAction('C', randomText);
+        }
 
         // ======= 0.5 词条框架自动加载系统 =======
         // 后续只需在此处添加词条，网页会自动将其分类排版！
@@ -421,6 +463,8 @@
 
             { text: "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　", level: 1},
             //分行符，如果想要透明只要再加style: 'blank'
+            { text: "年份不重要", level: 1, style: 'e', sound: true , type: 'C', contentText: "任意窗口界面中提到的【年份】並不重要，\n 年份僅作記錄用，但是確實也是（並不太）嚴謹的時間曆法。本網站的目的除了自娛自樂以外，更加期望讀者能體驗點擊的樂趣。\n ||如果您感興趣，也可結合年份探索事件的關聯。||" },
+            
             { text: "上原托马斯 / Uehara Thomas", level: 1, style: 'c', type: 'A', url : "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-9"},
             { text: "星野泪人 / Hoshino NamidaHito", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-6" },
             { text: "米歇尔 / Saint Michel", level: 1, style: 'c', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-5" },
@@ -468,10 +512,14 @@
             { text: "神经抑制剂", level: 3, style: 'e', sound: true, type: 'C', contentText:"托马斯要使用的东西。\nTT生物制剂\n- 稳定制剂\n缓解患者后的冲击性截断反应，促进芯片切除后的神经重塑。促脑源性营养因子的分化促进多巴胺神经元再生长，预防戒断反应，并且作用于受损的前额叶皮层，促进神经发生与重塑。\n- 抑制制剂\n针对于在语言认知脑区的GABA-A受体的靶向药物。"},
 
             { text: "绝密档案演示", level: 3, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
-            { text: "制药门", level: 3, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
-            //====不為人知，深=====
-            { text: "The Drug Gate is reported deliberately", level: 4, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
-            { text: "万恶之源", level: 4, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-28" }
+            { text: "制药门", sound: true, level: 3, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
+            { text: "Body Part Conciousness", sound: true, level: 3, style: 'd', type: 'C', contentText: "意识起源 \n天堂相关实验所直至十年前還在持續进行意识模拟实验，目标是测试被拼接的神使身体碎片是否可能产生主体意识。实验方法为将拟造或异体尸体碎片拼装至神使身上并训练其反应，意图探索灵魂是否能被肉体复制以及拼接肢体是否能孕育自我意识。实验制造出集多个意识痕迹与残留反应为一体的构造体残片，具备类似灵魂模仿系统，有限度的感知与语言模拟能力。 " },
+
+            //====不為人知=====
+            { text: "The Drug Gate is reported deliberately", sound: true, level: 4, style: 'd', type: 'C', contentText: "这是 C 类词条弹出的纯文字窗口测试。\n您可以在此写入档案数据。" },
+            { text: "万恶之源", level: 4, style: 'b', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io/#footnotes-def-28" },
+            { text: "The root for TGOI", sound: true, level: 4, style: 'd', type: 'C', contentText: "TGOI 捿齱⨡麞=無限的𝐌inecraft蝃圗。不重要！！！" }
+        
         ];
 
         // 页面加载完成后自动生成词条
