@@ -127,10 +127,10 @@
         /* 角色图片排版 */
         .img-pink { position: absolute; top: 26%; right: 20%; width: 130px; z-index: 10; }
         .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 10; }
-
+        .img-click{ position: absolute; top: 10%; right: 15%; width: 60px; z-index: 11; cursor: pointer; }
         .img-dog { position: absolute; top: 70%; right: 5%; width: 100px; z-index: 5; }
         .img-glm { position: absolute; top: 50%; right: 55%; width: 100px; z-index: 10; }
-        .img-seal { position: absolute; top: 12%; right: 15%; width: 50px; z-index: 10; }
+        .img-seal { position: absolute; top: 12%; right: 15%; width: 100px; z-index: 10; }
         
         /* 流泪星星排版 */
         .star { position: absolute; width: 50px; z-index: 5; }
@@ -291,6 +291,7 @@
         <!--使用例：<img src="assets/lianyi.png" class="img-red" onmousedown="document.getElementById('special-sound').play()">-->
         <img src="assets/Gloomy.jpg" alt="kkk" class="img-glm" style="cursor: pointer;" onclick="showGloomyText()">
         <img src="assets/seal2.gif" alt="kkk" class="img-seal" style="cursor: pointer;" onclick="showSealText()">
+        <img src="assets/click.gif" alt="click" class="img-click" onclick="handleAction('C', 'Click The seal to hit the seal!')">
         <!-- 给 amigos.gif 加上点击跳出友站弹窗的开关代码，并加上小手指针 -->
         <img src="assets/amigos.gif" alt="amigos" style="cursor: pointer; position: absolute; top: 0%; left: 55%; width: 250px; z-index: 20;" onclick="document.getElementById('links-modal').style.display='block';  updateSiteInfo();">
 
