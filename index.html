@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TGOI Oddities Iceberg</title>
+    <!-- 引入您喜欢的复古风格图标字体库，例如 Font Awesome（如果需要的话） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Sixtyfour&display=swap" rel="stylesheet">
     <style>
-        /* 引入您想要的 Garet 字体，若本地或同目录下有字体文件可取消注释并修改路径 */
+        /* 本地字体引用在这 */
         /*
         @font-face {
             font-family: 'Garet';
@@ -55,11 +59,15 @@
         .title {
             position: absolute;
             top: 15%;
-            right: -15%;
+            right: -12%;
             color: #fcff5c; 
-            font-size: 4.5rem;
+            font-family: "Sixtyfour", sans-serif;
+            font-size: 3rem;
             font-weight: 700;
-            z-index: 1000;
+            font-variation-settings:
+                "BLED" 63,
+                "SCAN" -2;
+            z-index: 49;
             animation: flash-scale 1.2s infinite ease-in-out; 
         }
 
@@ -127,10 +135,10 @@
         /* 角色图片排版 */
         .img-pink { position: absolute; top: 26%; right: 20%; width: 130px; z-index: 10; }
         .img-red { position: absolute; top: 58%; right: 35%; width: 100px; z-index: 10; }
-        .img-click{ position: absolute; top: 10%; right: 15%; width: 60px; z-index: 11; cursor: pointer; }
         .img-dog { position: absolute; top: 70%; right: 5%; width: 100px; z-index: 5; }
         .img-glm { position: absolute; top: 50%; right: 55%; width: 100px; z-index: 10; }
-        .img-seal { position: absolute; top: 12%; right: 15%; width: 100px; z-index: 10; }
+        .img-click{ position: absolute; top: 8%; right: 0%; width: 60px; z-index: 11; cursor: pointer; }
+        .img-seal { position: absolute; top: 10%; right: 0%; width: 100px; z-index: 10; }
         
         /* 流泪星星排版 */
         .star { position: absolute; width: 50px; z-index: 5; }
@@ -156,19 +164,19 @@
         }
 
         /* 古早风密码弹窗样式 */
-        #password-modal {
+         #password-modal {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #c0c0c0; /* 经典的电脑视窗灰 */
+            background-color: #c0c0c0; 
             border: 2px solid;
             border-color: #dfdfdf #000000 #000000 #dfdfdf;
-            padding: 20px;
+            padding: 2px; /* 【关键修改】改为2px，让蓝色标题栏贴边 */
             z-index: 10000;
             text-align: center;
-            width: 350px;
+            width: 400px;
         }
         
         #password-modal p {
@@ -250,6 +258,74 @@
             width: 100%;
             height: auto;
         }
+        /* ================= 全局 CRT 线性扫描滤镜 ================= */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* 使用重复的线性渐变画出黑白相间的半透明横线 */
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 2px,
+                rgba(0, 0, 0, 0.15) 2px,
+                rgba(0, 0, 0, 0.15) 4px
+            );
+            z-index: 50; /* 确保它的层级极其高，盖住网页上的所有元素 */
+            pointer-events: none; /* 让鼠标穿透这层滤镜 */
+        }
+          /* ================= 全局不对称暗角滤镜 ================= */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            
+            /* 【核心原理】径向渐变 (radial-gradient)
+               circle at 25% 50%：把光源中心强制设定在屏幕偏左侧的位置。
+               这样左边大面积是透明的 (transparent)，而右侧因为距离光源远，黑影会被拉得极长、极深！ */
+            background: radial-gradient(
+                circle at 25% 50%, 
+                transparent 40%, 
+                rgba(0, 0, 0, 0.85) 130%
+            );
+            
+            z-index: 49; 
+            pointer-events: none; /* 【极其关键】让鼠标完全穿透，绝不阻挡底层的任何点击和悬停事件！ */
+        }
+    /* ================= 全局 CRT 青白荧光/屏幕反光滤镜 ================= */
+        html::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            
+            /* 【核心原理】径向渐变模拟球面显示器的青白荧光 */
+            /* circle at 20% 40% 就是您要的“中心位置变量”，可以随时更改 */
+            background: radial-gradient(
+                circle at 20% 40%, 
+                rgba(180, 240, 255, 0.15) 5%,    /* 青白色的强光中心 */
+                rgba(180, 240, 255, 0.05) 35%,   /* 光晕向外柔和散开 */
+                transparent 45%                  /* 边缘自然消失于黑暗中 */
+            );
+            
+            /* 【屏幕魔法】mix-blend-mode: screen (滤色模式) */
+            /* 这会让这层青白色的光像真正的发光体一样叠加在冰山图上，显得通透而不突兀 */
+            mix-blend-mode: screen; 
+            
+            z-index: 49; /* 放在扫描线(99999)和暗角(99998)的稍微下面一点，更真实 */
+            pointer-events: none; /* 【极其关键】允许鼠标彻底穿透！ */
+        }
     </style>
 </head>
 <body>
@@ -258,7 +334,7 @@
         <!-- 模拟参考图的右侧深色块 -->
         <div class="right-panel"></div>
 
-        <div class="title">TGOI Oddities!</div>
+        <div class="title">TGOI<br>Oddities!</div>
 
         <!-- 在此添加詞條 -->
         <!-- 自动加载词条的四个层级容器 (代替原本的 links-column) -->
@@ -328,10 +404,19 @@
 
     <!-- 弹出的密码输入窗口 -->
     <div id="password-modal">
-        <p>请输入正确的账户及密码，新用户输入账户即登记为注册</p>
-        <input type="text" placeholder="任意输入您的名字拼音即可" id="acc-input">
-        <input type="text" placeholder="密码为网站作者的任意网名的拼音" id="pwd-input">
-        <button onclick="checkPassword()">确认</button>
+        <!-- 【新增】复用友站弹窗的蓝色标题栏和关闭按钮 -->
+        <div class="modal-header">
+            <span>恭喜你发现了外链弹窗!</span>
+            <button class="close-btn" onclick="document.getElementById('password-modal').style.display='none'">X</button>
+        </div>
+        <!-- 将原本的内容放进 modal-body 容器中保持间距 -->
+        <div class="modal-body">
+            <p>请输入正确的账户及密码，新用户输入账户即登记为注册</p>
+            <input type="text" placeholder="任意输入您的名字即可" id="acc-input">
+            <input type="text" placeholder="密码为网站作者的任意网名的拼音" id="pwd-input">
+            <br>
+            <button onclick="checkPassword()">确认</button>
+        </div>
     </div>
     
 
@@ -705,7 +790,7 @@
             }
         }
 
-        // 抛弃一切顾虑，每20毫秒无脑执行
+        // 每20毫秒执行移动
         setInterval(moveAds, 20);
 
             </script>
