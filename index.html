@@ -293,8 +293,8 @@
                这样左边大面积是透明的 (transparent)，而右侧因为距离光源远，黑影会被拉得极长、极深！ */
             background: radial-gradient(
                 circle at 25% 50%, 
-                transparent 40%, 
-                rgba(0, 0, 0, 0.85) 130%
+                transparent 65%, 
+                rgb(0, 34, 44) 160%
             );
             
             z-index: 49; 
@@ -305,7 +305,7 @@
             content: " ";
             display: block;
             position: fixed;
-            top: 0;
+            top: 10%;
             left: 0;
             width: 100vw;
             height: 100vh;
@@ -314,7 +314,7 @@
             /* circle at 20% 40% 就是您要的“中心位置变量”，可以随时更改 */
             background: radial-gradient(
                 circle at 20% 40%, 
-                rgba(180, 240, 255, 0.15) 5%,    /* 青白色的强光中心 */
+                rgba(180, 240, 255, 0.30) 5%,    /* 青白色的强光中心 */
                 rgba(180, 240, 255, 0.05) 35%,   /* 光晕向外柔和散开 */
                 transparent 45%                  /* 边缘自然消失于黑暗中 */
             );
@@ -323,7 +323,7 @@
             /* 这会让这层青白色的光像真正的发光体一样叠加在冰山图上，显得通透而不突兀 */
             mix-blend-mode: screen; 
             
-            z-index: 49; /* 放在扫描线(99999)和暗角(99998)的稍微下面一点，更真实 */
+            z-index: 49; 
             pointer-events: none; /* 【极其关键】允许鼠标彻底穿透！ */
         }
     </style>
@@ -561,7 +561,7 @@
             //如果想要透明只要再加style: 'blank'
             // type: 'A' 需要填 url，'B' 需要填 imgSrc，'C' 需要填 contentText
             
-            { text: "　　　　　　　第一行为词条介绍。The first row is introduction of entity Classification.　　　　　　　　　　　", level: 1 , style: 'blank'},
+            { text: "　　　　　第一行为词条介绍。The first row is introduction of entity Classification.　　　　　　　　", level: 1 , style: 'blank'},
 
             { text: "🏠主页 / Homepage", level: 1, style: 'a', type: 'A', url: "https://nauseap.github.io/TGOIhomePage.io" },
             { text: "🏢种族势力与组织 / Institutions and forces", level: 1, style: 'b', type: 'C', contentText: "种族势力与组织！该词条下大概有天堂2神使与天使3圣学院4青河16青河17(城)青河城郊18太阳马戏团19外族杀手兔一族20魔女和精灵21地狱22其他奇迹税务局23" , sound: true},
