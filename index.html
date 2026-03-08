@@ -108,17 +108,17 @@
             padding: 5px;
             transition: all 0.2s;
             pointer-events: auto; /* 【关键修复】虽然玻璃板失去了实体，但保留词条文字本身的点击功能 */
-            text-shadow: -0.5px 0px 2.5px rgba(23, 52, 124, 0.943); 
+            text-shadow: -1px 0px 2px rgb(23, 52, 124); 
         }
 
 
         /* 词条分类方式 2：颜色样式 (a, b, c, d, e) */
-        .style-a { color: #533a34; text-decoration-color: #533a34; } .style-a:hover { color: #ff00ff; text-decoration-color: #ff00ff; }
-        .style-b { color: #fff86a; text-decoration-color: #fef37d; } .style-b:hover { color: #ffffff; text-decoration-color: #ffffff; }
-        .style-c { color: #ffa16a; text-decoration-color: #ffa16a; } .style-c:hover { color: #ffff00; text-decoration-color: #ffff00; }
-        .style-d { color: #adfa42; text-decoration-color: #adfa42; } .style-d:hover { color: #00ffff; text-decoration-color: #00ffff; }
-        .style-e { color: #e7bde7; text-decoration-color: #dabbda; } .style-e:hover { color: #ff1212; text-decoration-color: #ff0000; }
-        .style-f { color: #3adafa; text-decoration-color: #3adafa; } .style-f:hover { color: #00ff62; text-decoration-color: #00ff62; }
+        .style-a { color: #7d3726; text-decoration-color: #7d3726; } .style-a:hover { color: #ff00ff; text-decoration-color: #ff00ff; }
+        .style-b { color: #f4e80c; text-decoration-color: #f4e80c; } .style-b:hover { color: #ffffff; text-decoration-color: #ffffff; }
+        .style-c { color: #ff8d4b; text-decoration-color: #ffa16a; } .style-c:hover { color: #ffff00; text-decoration-color: #ffff00; }
+        .style-d { color: #6efe00; text-decoration-color: #6efe00; } .style-d:hover { color: #00ffff; text-decoration-color: #00ffff; }
+        .style-e { color: #ff3fff; text-decoration-color: #ff3fff; } .style-e:hover { color: #ff1212; text-decoration-color: #ff0000; }
+        .style-f { color: #0aeefe; text-decoration-color: #0aeefe; } .style-f:hover { color: #00ff62; text-decoration-color: #00ff62; }
 
         .style-blank { text-decoration: none !important; pointer-events: none; }
 
@@ -456,6 +456,26 @@
         <img src="assets/Ad2.gif" alt="第二个广告" onerror="this.src='assets/ad2.gif'; this.onerror=null;">
     </a>
 
+     <!-- ================= 访客计数器 ================= -->
+        <!-- 第三方静态计数器脚本 (不蒜子) -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+        <!-- 计数器显示框，绝对定位在页面右下角 -->
+        <div style="
+            position: fixed; 
+            bottom: 10px; 
+            right: 15px; 
+            color: #6efe00; /* 终端机荧光绿 */
+            font-family:  'Sixtyfour', monospace; /* 使用您的像素字体 */
+            font-size: 14px;
+            text-shadow: -2px 0px 0px #000000; /* 像素硬阴影 */
+            z-index: 45; /* 确保它永远在最上层 */
+            pointer-events: none; /* 防止挡住底下的点击 */
+        ">
+            TGOI Archive Access: <span id="busuanzi_value_site_uv"></span> Users<br>
+            Total Queries: <span id="busuanzi_value_site_pv"></span>
+        </div>
+
   <!-- 脚本 -->
 
     
@@ -733,6 +753,7 @@
                 alert("该站点尚未更新！");
             }
         }
+        
 
         // =================小广告脚本==========================
         let adData = [
@@ -792,6 +813,7 @@
 
         // 每20毫秒执行移动
         setInterval(moveAds, 20);
+        
 
             </script>
 </body>
